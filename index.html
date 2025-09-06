@@ -116,8 +116,8 @@
       <!-- Left: Logo + Title -->
       <div class="flex items-center space-x-3">
         <!-- Circle Logo Image -->
-        <img src="images/logo.png" alt="IT Department Logo" class="w-12 h-12 object-cover rounded-full shadow-md">
-        
+        <img src="logo/logo.png" alt="IT Department Logo" class="w-12 h-12 object-cover rounded-full shadow-md">
+
         <div>
           <h1 class="text-xl font-bold text-gray-800">BS Information Technology</h1>
           <p class="text-sm text-gray-600">Department</p>
@@ -154,20 +154,7 @@
   </nav>
 </header>
 
-
-<!-- Smooth scroll CSS -->
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    padding-top: 80px; /* para hindi matakpan ng fixed navbar yung sections */
-  }
-</style>
-
-
-<!-- JS for Mobile Menu -->
+<!-- JS for Mobile Menu + Active Link -->
 <script>
   function toggleMobileMenu() {
     const menu = document.getElementById('mobileMenu');
@@ -178,7 +165,33 @@
     const menu = document.getElementById('mobileMenu');
     menu.classList.add('hidden');
   }
+
+  // Active link on scroll
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll("section[id]");
+    const scrollY = window.pageYOffset + 100; // offset para hindi matakpan ng navbar
+
+    sections.forEach(current => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop;
+      const sectionId = current.getAttribute("id");
+      const navLink = document.querySelectorAll('.nav-link[href="#' + sectionId + '"]');
+
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        navLink.forEach(link => link.classList.add("text-indigo-600", "font-bold"));
+      } else {
+        navLink.forEach(link => link.classList.remove("text-indigo-600", "font-bold"));
+      }
+    });
+  });
 </script>
+
+<!-- Smooth scroll CSS -->
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
 
 
     <!-- Hero Section -->
@@ -554,21 +567,24 @@
 
 <!-- Modal -->
 <div id="labModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-2xl overflow-hidden shadow-lg max-w-5xl w-full relative">
+  <div class="bg-white rounded-2xl overflow-hidden shadow-lg max-w-5xl w-full max-h-screen overflow-y-auto relative">
+    
     <!-- Close Button -->
     <button id="closeModal" 
-      class="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg z-50">
-      ✕
+      class="sticky top-3 right-3 ml-auto bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg z-50">
+      close
     </button>
+    
     <!-- Content -->
-    <div class="grid grid-cols-1 md:grid-cols-2">
-      <img src="images/lab.jpg" alt="Laboratory 1" class="w-full h-auto max-h-72 md:max-h-96 object-contain">
-      <img src="images/laboratoy.png" alt="Laboratory 2" class="w-full h-auto max-h-72 md:max-h-96 object-contain">
-      <img src="images/labr.jpg" alt="Laboratory 3" class="w-full h-auto max-h-72 md:max-h-96 object-contain">
-      <img src="images/lan.jpg" alt="Laboratory 4" class="w-full h-auto max-h-72 md:max-h-96 object-contain">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+      <img src="images/lab.jpg" alt="Laboratory 1" class="w-full h-auto object-contain rounded-lg shadow">
+      <img src="images/laboratoy.png" alt="Laboratory 2" class="w-full h-auto object-contain rounded-lg shadow">
+      <img src="images/labr.jpg" alt="Laboratory 3" class="w-full h-auto object-contain rounded-lg shadow">
+      <img src="images/lan.jpg" alt="Laboratory 4" class="w-full h-auto object-contain rounded-lg shadow">
     </div>
   </div>
 </div>
+
 
 <!-- Script for Modal -->
 <script>
@@ -677,7 +693,7 @@
   <div class="container mx-auto px-6">
     <!-- Title -->
     <div class="text-center mb-16 fade-in">
-      <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+      <h2 class="text-4xl font-bold mb-4">Send Feedback</h2>
       <p class="text-xl text-gray-300 max-w-3xl mx-auto">
         Ready to start your journey in Information Technology? Contact us today!
       </p>
@@ -701,7 +717,7 @@
 
       <!-- Contact Form -->
       <div class="bg-gray-800 p-8 rounded-2xl shadow-lg slide-in-right">
-        <h3 class="text-2xl font-bold mb-6">Send us a Message</h3>
+        <h3 class="text-2xl font-bold mb-6">Send Comment</h3>
         <form class="space-y-4" onsubmit="handleFormSubmit(event)">
           <div>
             <input type="text" placeholder="Your Name" required
@@ -712,12 +728,12 @@
               class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 text-white">
           </div>
           <div>
-            <textarea placeholder="Your Message" rows="6" required
+            <textarea placeholder="Your Comment" rows="6" required
               class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 text-white resize-none"></textarea>
           </div>
           <button type="submit"
             class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300">
-            Send Message
+            Send Comment
           </button>
         </form>
       </div>
@@ -792,7 +808,7 @@
     <div class="bg-gray-800 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start shadow-md">
       <!-- Developer Image -->
       <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6 flex justify-center">
-        <img src="images/mantawil.png" alt="Norhan - Developer" class="w-32 h-32 rounded-full object-cover border-4 border-gray-700 shadow-lg">
+        <img src="images/logo.jpg" alt="Norhan - Developer" class="w-32 h-32 rounded-full object-cover border-4 border-gray-700 shadow-lg">
       </div>
 
       <!-- Developer Message -->
@@ -902,4 +918,5 @@
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ab87df6530064f',t:'MTc1NzEzNjE2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
